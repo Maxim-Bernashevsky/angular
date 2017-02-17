@@ -10,7 +10,7 @@ import { Component } from '@angular/core';
 export class AppComponent  {
   todos: TODO[] = [];
   constructor() {
-    this.todos = JSON.parse(localStorage.getItem("todos"));
+    this.todos = JSON.parse(localStorage.getItem("todos")) || [];
     localStorage.setItem("todos", JSON.stringify(this.todos));
   }
   add(text: string) {
