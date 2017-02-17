@@ -9,12 +9,12 @@ import { Component } from '@angular/core';
 
 export class AppComponent  {
   todos: TODO[] = [];
+
   constructor() {
     this.todos = JSON.parse(localStorage.getItem("todos")) || [];
     localStorage.setItem("todos", JSON.stringify(this.todos));
   }
   add(text: string) {
-
     let item: TODO = { title: text, completed: false };
     this.todos.push(item);
     localStorage.setItem("todos", JSON.stringify(this.todos));
@@ -30,9 +30,8 @@ export class AppComponent  {
       localStorage.setItem("todos", JSON.stringify(this.todos));
     }
   }
-  checkAdd(){
+  checkAdd(event: Event, text: string){
     event.preventDefault();
-    const text: string = document.getElementById('newTask')['value'];
     if(text['match'](/[A-zА-я0-9]/)){
       this.add(text);
     }else {
@@ -53,7 +52,7 @@ export class AppComponent  {
   }
 }
 
-class TODO{
+interface TODO{
   title: string;
   completed: boolean;
 }
