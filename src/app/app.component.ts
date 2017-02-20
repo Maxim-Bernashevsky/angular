@@ -8,24 +8,24 @@ import { Component, trigger, state, style, transition, animate } from '@angular/
 
   animations: [
     trigger('shakeInput', [
-      state('animationFirst', style({transform: 'translateX(0)'})),
-      state('animationSecond', style({transform: 'translateX(100px)'})),
-      state('animationThree', style({transform: 'translateX(-100px)'})),
-      transition('animationFirst <=> animationSecond', [
+      state('shakeStand', style({transform: 'translateX(0)'})),
+      state('shakeRight', style({transform: 'translateX(100px)'})),
+      state('shakeLeft', style({transform: 'translateX(-100px)'})),
+      transition('shakeStand <=> shakeRight', [
         animate('200ms ease-in')
       ]),
-      transition('animationThree <=> animationSecond', [
+      transition('shakeLeft <=> shakeRight', [
         animate('200ms ease-in')
       ]),
-      transition('animationFirst <=> animationThree', [
+      transition('shakeStand <=> shakeLeft', [
         animate('200ms ease-in')
       ]),
     ]),
     trigger('errText', [
-      state('errF', style({color: 'black'})),
-      state('errS', style({color: 'red'})),
-      transition('errF <=> errS', [
-        animate('200ms ease-in')
+      state('textBlack', style({color: 'black'})),
+      state('textRed', style({color: 'red'})),
+      transition('textBlack <=> textRed', [
+        animate('300ms ease-in')
       ])
     ])
   ]
@@ -34,9 +34,8 @@ import { Component, trigger, state, style, transition, animate } from '@angular/
 
 export class AppComponent  {
   todos: TODO[] = [];
-
-  stateInput: string = 'animationFirst';
-  stateLabel: string = 'errF';
+  stateInput: string = 'shakeStand';
+  stateLabel: string = 'textBlack';
 
   constructor() {
     this.todos = JSON.parse(localStorage.getItem("todos")) || [];
@@ -65,35 +64,24 @@ export class AppComponent  {
     }else {
       this.stateErrText();
       this.stateInputFoo();
-      //this.emptyInput();
     }
   }
   stateInputFoo() {
     let el = this;
-    el.stateInput = 'animationSecond';
+    el.stateInput = 'shakeRight';
 
     setTimeout(function () {
-      el.stateInput = 'animationThree';
+      el.stateInput = 'shakeLeft';
     }, 100);
     setTimeout(function () {
-      el.stateInput = 'animationFirst';
+      el.stateInput = 'shakeStand';
     }, 200);
   }
-
   stateErrText() {
     let el = this;
-    el.stateLabel = 'errS';
-
+    el.stateLabel = 'textRed';
     setTimeout(function () {
-      el.stateLabel = 'errF';
-    }, 2000);
-  }
-
-  emptyInput(){
-    document.getElementById("labelNewTask").innerText = "Заполните текст инпута";
-
-    setTimeout(function () {
-      document.getElementById("labelNewTask").innerText = "Предстоит сделать";
+      el.stateLabel = 'textBlack';
     }, 2000);
   }
 }
