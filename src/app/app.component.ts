@@ -1,14 +1,42 @@
-import { Component } from '@angular/core';
+import { Component, trigger, state, style, transition, animate } from '@angular/core';
 
 @Component({
   moduleId: module.id,
   selector: 'my-app',
   templateUrl: 'app.component.html',
-  styleUrls: ['app.component.css']
+  styleUrls: ['app.component.css'],
+
+  animations: [
+    trigger('shakeInput', [
+      state('animationFirst', style({transform: 'translateX(0)'})),
+      state('animationSecond', style({transform: 'translateX(100px)'})),
+      state('animationThree', style({transform: 'translateX(-100px)'})),
+      transition('animationFirst <=> animationSecond', [
+        animate('200ms ease-in')
+      ]),
+      transition('animationThree <=> animationSecond', [
+        animate('200ms ease-in')
+      ]),
+      transition('animationFirst <=> animationThree', [
+        animate('200ms ease-in')
+      ]),
+    ]),
+    trigger('errText', [
+      state('errF', style({color: 'black'})),
+      state('errS', style({color: 'red'})),
+      transition('errF <=> errS', [
+        animate('200ms ease-in')
+      ])
+    ])
+  ]
+
 })
 
 export class AppComponent  {
   todos: TODO[] = [];
+
+  stateInput: string = 'animationFirst';
+  stateLabel: string = 'errF';
 
   constructor() {
     this.todos = JSON.parse(localStorage.getItem("todos")) || [];
@@ -35,19 +63,37 @@ export class AppComponent  {
     if(text['match'](/[A-zА-я0-9]/)){
       this.add(text);
     }else {
-      this.emptyInput();
+      this.stateErrText();
+      this.stateInputFoo();
+      //this.emptyInput();
     }
   }
-  emptyInput(){
-    document.getElementById("newTask").classList.add("empty");
-    document.getElementById("labelNewTask").innerText = "Заполните текст инпута";
-    document.getElementById("labelNewTask").style.color = "red";
+  stateInputFoo() {
+    let el = this;
+    el.stateInput = 'animationSecond';
+
     setTimeout(function () {
-      document.getElementById("newTask").classList.remove("empty");
-    }, 300);
+      el.stateInput = 'animationThree';
+    }, 100);
+    setTimeout(function () {
+      el.stateInput = 'animationFirst';
+    }, 200);
+  }
+
+  stateErrText() {
+    let el = this;
+    el.stateLabel = 'errS';
+
+    setTimeout(function () {
+      el.stateLabel = 'errF';
+    }, 2000);
+  }
+
+  emptyInput(){
+    document.getElementById("labelNewTask").innerText = "Заполните текст инпута";
+
     setTimeout(function () {
       document.getElementById("labelNewTask").innerText = "Предстоит сделать";
-      document.getElementById("labelNewTask").style.color = "";
     }, 2000);
   }
 }

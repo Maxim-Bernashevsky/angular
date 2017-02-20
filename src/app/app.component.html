@@ -10,8 +10,8 @@
 </ul>
 
 <form (submit)="checkAdd($event, newTaskInput.value); newTaskInput.value=''">
-  <label id="labelNewTask" for="newTask">Предстоит сделать</label>
-  <input id="newTask" type="text" placeholder="Новая задача" #newTaskInput>
-  <input id="btnNewTask" type="submit" placeholder="Добавить">
+  <label id="labelNewTask" for="newTask" [@errText]="stateLabel">Предстоит сделать</label>
+  <input id="newTask" type="text" placeholder="Новая задача" #newTaskInput [@shakeInput]="stateInput">
+  <input id="btnNewTask" type="submit" placeholder="Добавить" >
 </form>
 
