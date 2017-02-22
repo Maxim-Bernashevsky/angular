@@ -1,0 +1,117 @@
+<div class="calc">
+<div class="ca-number-display-container">
+  <span class="ca-number-display-text">{{displayText}}</span>
+</div>
+<div class="ca-numberpad-container noselect" (keyup)="onKeyUp($event)">
+  <div class="ca-row-container">
+    <div class="ca-item-container">
+      <div class="ca-button unary-operator" (click)="onClick($event, BUTTONS.AC)">
+        <span class="ca-button-text">AC</span>
+      </div>
+    </div>
+    <div class="ca-item-container">
+      <div class="ca-button unary-operator" (click)="onClick($event, BUTTONS.NEGATE)">
+        <span class="ca-button-text">+/-</span>
+      </div>
+    </div>
+    <div class="ca-item-container">
+      <div class="ca-button unary-operator">
+        <span class="ca-button-text" (click)="onClick($event, BUTTONS.PERCENT)">%</span>
+      </div>
+    </div>
+    <div class="ca-item-container">
+      <div class="ca-button operator" (click)="onClick($event, BUTTONS.DIVIDE)" >
+        <span class="ca-button-text">/</span>
+      </div>
+    </div>
+  </div>
+  <div class="ca-row-container">
+    <div class="ca-item-container">
+      <div class="ca-button number" (click)="onClick($event, BUTTONS.SEVEN)">
+        <span class="ca-button-text">7</span>
+      </div>
+    </div>
+    <div class="ca-item-container">
+      <div class="ca-button number" (click)="onClick($event, BUTTONS.EIGHT)">
+        <span class="ca-button-text">8</span>
+      </div>
+    </div>
+    <div class="ca-item-container">
+      <div class="ca-button number" (click)="onClick($event, BUTTONS.NINE)">
+        <span class="ca-button-text">9</span>
+      </div>
+    </div>
+    <div class="ca-item-container">
+      <div class="ca-button operator" (click)="onClick($event, BUTTONS.MULTIPLY)">
+        <span class="ca-button-text">x</span>
+      </div>
+    </div>
+  </div>
+  <div class="ca-row-container">
+    <div class="ca-item-container">
+      <div class="ca-button number" (click)="onClick($event, BUTTONS.FOUR)">
+        <span class="ca-button-text">4</span>
+      </div>
+    </div>
+    <div class="ca-item-container">
+      <div class="ca-button number" (click)="onClick($event, BUTTONS.FIVE)">
+        <span class="ca-button-text">5</span>
+      </div>
+    </div>
+    <div class="ca-item-container">
+      <div class="ca-button number" (click)="onClick($event, BUTTONS.SIX)">
+        <span class="ca-button-text">6</span>
+      </div>
+    </div>
+    <div class="ca-item-container">
+      <div class="ca-button operator" (click)="onClick($event, BUTTONS.SUBTRACT)">
+        <span class="ca-button-text">–</span>
+      </div>
+    </div>
+  </div>
+  <div class="ca-row-container">
+    <div class="ca-item-container">
+      <div class="ca-button number" (click)="onClick($event, BUTTONS.ONE)">
+        <span class="ca-button-text">1</span>
+      </div>
+    </div>
+    <div class="ca-item-container">
+      <div class="ca-button number" (click)="onClick($event, BUTTONS.TWO)">
+        <span class="ca-button-text">2</span>
+      </div>
+    </div>
+    <div class="ca-item-container">
+      <div class="ca-button number" (click)="onClick($event, BUTTONS.THREE)">
+        <span class="ca-button-text">3</span>
+      </div>
+    </div>
+    <div class="ca-item-container">
+      <div class="ca-button operator" (click)="onClick($event, BUTTONS.ADDITION)">
+        <span class="ca-button-text">+</span>
+      </div>
+    </div>
+  </div>
+  <div class="ca-row-container">
+    <div class="ca-item-container">
+      <div class="ca-button unary-operator" (click)="onClick($event, BUTTONS.SETTINGS)">
+        <span class="ca-button-text">i</span>
+      </div>
+    </div>
+    <div class="ca-item-container">
+      <div class="ca-button number" (click)="onClick($event, BUTTONS.ZERO)">
+        <span class="ca-button-text">0</span>
+      </div>
+    </div>
+    <div class="ca-item-container">
+      <div class="ca-button unary-operator" (click)="onClick($event, BUTTONS.PERIOD)">
+        <span class="ca-button-text">.</span>
+      </div>
+    </div>
+    <div class="ca-item-container">
+      <div class="ca-button operator" (click)="onClick($event, BUTTONS.EQUAL)">
+        <span class="ca-button-text">=</span>
+      </div>
+    </div>
+  </div>
+</div>
+</div>

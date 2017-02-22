@@ -1,4 +1,4 @@
-import { Component, trigger, state, style, transition, animate } from '@angular/core';
+import { Component, trigger, keyframes, state, style, transition, animate } from '@angular/core';
 
 @Component({
   moduleId: module.id,
@@ -14,12 +14,21 @@ import { Component, trigger, state, style, transition, animate } from '@angular/
       transition('shakeStand <=> shakeRight', [
         animate('200ms ease-in')
       ]),
+
       transition('shakeLeft <=> shakeRight', [
         animate('200ms ease-in')
       ]),
       transition('shakeStand <=> shakeLeft', [
         animate('200ms ease-in')
       ]),
+      /*state('shakeStand', style({transform: 'translateX(0)'})), */
+      transition('void => *', [
+        animate(500, keyframes([
+          style({opacity: 0, transform: 'translateY(-180px)', offset: 0}),
+          style({opacity: 1, transform: 'translateY(25px)', offset: .75}),
+          style({opacity: 1, transform: 'translateY(0)', offset: 1}),
+        ]))
+      ])
     ]),
     trigger('errText', [
       state('textBlack', style({color: 'black'})),
@@ -34,6 +43,7 @@ import { Component, trigger, state, style, transition, animate } from '@angular/
 
 export class AppComponent  {
   todos: TODO[] = [];
+
   stateInput: string = 'shakeStand';
   stateLabel: string = 'textBlack';
 
@@ -63,10 +73,10 @@ export class AppComponent  {
       this.add(text);
     }else {
       this.stateErrText();
-      this.stateInputFoo();
+      this.animateShakeInput();
     }
   }
-  stateInputFoo() {
+  animateShakeInput() {
     let el = this;
     el.stateInput = 'shakeRight';
 
