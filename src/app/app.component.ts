@@ -1,4 +1,6 @@
 import { Component, trigger, keyframes, state, style, transition, animate } from '@angular/core';
+import { AngularFire, FirebaseListObservable } from "angularfire2";
+import { firebaseConfig }  from '../environments/firebase.config.js';
 
 @Component({
   moduleId: module.id,
@@ -14,14 +16,12 @@ import { Component, trigger, keyframes, state, style, transition, animate } from
       transition('shakeStand <=> shakeRight', [
         animate('200ms ease-in')
       ]),
-
       transition('shakeLeft <=> shakeRight', [
         animate('200ms ease-in')
       ]),
       transition('shakeStand <=> shakeLeft', [
         animate('200ms ease-in')
       ]),
-      /*state('shakeStand', style({transform: 'translateX(0)'})), */
       transition('void => *', [
         animate(500, keyframes([
           style({opacity: 0, transform: 'translateY(-180px)', offset: 0}),
@@ -42,31 +42,33 @@ import { Component, trigger, keyframes, state, style, transition, animate } from
 })
 
 export class AppComponent  {
-  todos: TODO[] = [];
-
+  todos: FirebaseListObservable<TODO[]>;
   stateInput: string = 'shakeStand';
   stateLabel: string = 'textBlack';
+  itemObservable = this.af.database.object('/todos');
 
-  constructor() {
-    this.todos = JSON.parse(localStorage.getItem("todos")) || [];
-    localStorage.setItem("todos", JSON.stringify(this.todos));
+  constructor(private af: AngularFire){
+    this.todos = af.database.list('/todos');
   }
+
   add(text: string) {
-    let item: TODO = { title: text, completed: false };
-    this.todos.push(item);
-    localStorage.setItem("todos", JSON.stringify(this.todos));
+    this.todos.push({
+        title: text,
+        status: false
+    });
   }
+
   toggle(todo: TODO){
-    todo.completed = !todo.completed;
-    localStorage.setItem("todos", JSON.stringify(this.todos));
+    const key = todo['$key'];
+    this.af.database.object('/todos/' + key).update({
+      status: !todo.status
+    });
   }
-  remove(todo: TODO){
-    let index = this.todos.indexOf(todo);
-    if(index > -1){
-      this.todos.splice(index, 1);
-      localStorage.setItem("todos", JSON.stringify(this.todos));
-    }
+
+  remove(key: string){
+    this.af.database.object('todos/' + key).remove();
   }
+
   checkAdd(event: Event, text: string){
     event.preventDefault();
     if(text['match'](/[A-zА-я0-9]/)){
@@ -76,10 +78,10 @@ export class AppComponent  {
       this.animateShakeInput();
     }
   }
+
   animateShakeInput() {
     let el = this;
     el.stateInput = 'shakeRight';
-
     setTimeout(function () {
       el.stateInput = 'shakeLeft';
     }, 100);
@@ -87,6 +89,7 @@ export class AppComponent  {
       el.stateInput = 'shakeStand';
     }, 200);
   }
+
   stateErrText() {
     let el = this;
     el.stateLabel = 'textRed';
@@ -98,6 +101,6 @@ export class AppComponent  {
 
 interface TODO{
   title: string;
-  completed: boolean;
+  status: boolean;
 }
 

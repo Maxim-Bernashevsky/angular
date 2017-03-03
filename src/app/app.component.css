@@ -76,6 +76,7 @@ input[type="submit"] {
   -ms-transition: background-color .2s ease ;
   -o-transition: background-color .2s ease ;
   transition: background-color .2s ease ;
+  margin-bottom: 30px;
 }
 input[type="submit"]:hover {
   background-color: #ccccff;

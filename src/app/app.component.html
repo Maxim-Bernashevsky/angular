@@ -1,19 +1,18 @@
 <h1>Список задач</h1>
 
-<ul id="list" *ngIf = "todos.length" >
-  <li *ngFor="let todo of todos" [ngClass] = "{ 'completed': todo.completed }" >
+<ul>
+  <li *ngFor="let todo of todos | async" [ngClass] = "{ 'completed': todo.status }" >
     <button class="checkbox icon" (click)="toggle(todo)">
-      <i class="material-icons" [innerText] = "todo.completed ? 'check_box' : 'check_box_outline_blank'"></i>
+      <i class="material-icons" [innerText] = "todo.status ? 'check_box' : 'check_box_outline_blank'"></i>
     </button>
-    <span>{{ todo.title }}</span><i class="rem" (click)="remove(todo)">X</i>
+    <span>{{ todo.title }}</span><i class="rem" (click)="remove(todo['$key'])">X</i>
   </li>
 </ul>
 
 <form (submit)="checkAdd($event, newTaskInput.value); newTaskInput.value=''">
   <label id="labelNewTask" for="newTask" [@errText]="stateLabel">Предстоит сделать</label>
   <input id="newTask" type="text" placeholder="Новая задача" #newTaskInput [@shakeInput]="stateInput">
-  <input id="btnNewTask" type="submit" placeholder="Добавить" >
+  <input id="btnNewTask" type="submit" placeholder="Добавить">
 </form>
 
 <calculator></calculator>
-

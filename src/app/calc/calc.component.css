@@ -6,6 +6,7 @@
     display: table;
     width: 320px;
     height: 21%;
+    min-height: 37px;
     margin: 0;
     padding: 10px 0;
     text-align: center;
@@ -38,7 +39,8 @@
 }
 .ca-item-container {
   display: table-cell;
-  border: 1px solid #A9A9A9;
+  border: 1px solid #9f9f9f;
+  transition: opacity .2s ease;
 }
 .ca-button {
   display: table;
@@ -49,7 +51,7 @@
   cursor: pointer;
 }
 .ca-button:hover {
-  opacity: 0.8;
+  opacity: 1;
 }
 .ca-button-text {
   display: table-cell;
@@ -59,13 +61,19 @@
   padding: 10px;
 }
 .operator {
-  background-color: #FF9933;
+  background-color: #9b99a0;
   color: white;
 }
 .number {
-  background-color: #DCDCDC;
+  background-color: #f0f0ff;
   color: black;
 }
 .unary-operator {
-  background-color: #D9D9D9;
+  background-color: #f0f0ff;
+}
+.operator,
+.number,
+.unary-operator{
+  opacity: .6;
+  transition: opacity .2s ease;
 }
