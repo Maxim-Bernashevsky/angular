@@ -39,7 +39,7 @@
         defaultExtension: 'js'
       },
       'angularfire2': {
-        main: 'bundles/angularFire2.umd.js',
+        main: 'bundles/angularfire2.umd.js',
         defaultExtension: 'js'
       },
       'firebase': {
